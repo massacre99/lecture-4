@@ -1,13 +1,17 @@
 package myprojects.automation.assignment4;
 
+import myprojects.automation.assignment4.utils.Properties;
 import myprojects.automation.assignment4.utils.logging.EventHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -15,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Base script functionality, can be used for all Selenium scripts.
+ * TODO environment : Chrome 64 (driver 2.33), FF 54 (driver 0.17.0), IE 11 (driver 3.3.0.0)
  */
 public abstract class BaseTest {
     protected EventFiringWebDriver driver;
@@ -35,10 +40,13 @@ public abstract class BaseTest {
                 return new FirefoxDriver();
             case "ie":
             case "internet explorer":
+                DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+                capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+                capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                 System.setProperty(
                         "webdriver.ie.driver",
                         getResource("/IEDriverServer.exe"));
-                return new InternetExplorerDriver();
+                return new InternetExplorerDriver(capabilities);
             case "chrome":
             default:
                 System.setProperty(
@@ -68,9 +76,10 @@ public abstract class BaseTest {
      * creates {@link ChromeDriver} instance by default.
      *
      */
+
     @BeforeClass
-    // TODO use parameters from pom.xml to pass required browser type
-    public void setUp(String browser ) {
+    @Parameters("browser")
+    public void setUp(@Optional("chrome") String browser)  {
         driver = new EventFiringWebDriver(getDriver(browser));
         driver.register(new EventHandler());
 
