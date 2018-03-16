@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Products Management"  verbose="1" >
+  <!--  <suite name="Products Management" parallel="tests" thread-count="3" verbose="2"> -->
 
     <!--configure test to execute testing script using Chrome browser-->
 

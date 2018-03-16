@@ -17,13 +17,13 @@ public class CustomReporter {
      * Logs action step that will be highlighted in test execution report.
      */
     public static void logAction(String message) {
-        Reporter.log(String.format("[%-12s] ACTION: %s", LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME), message));
+        Reporter.log(String.format("[%-12s] ACTION: %s", LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME), message) + "<br>");
     }
 
     /**
      * Logs simple step.
      */
     public static void log(String message) {
-        Reporter.log(String.format("[%-12s] %s", LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME), message));
+        Reporter.log(String.format("[%-12s] %s", LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME), message) + "<br>");
     }
 }

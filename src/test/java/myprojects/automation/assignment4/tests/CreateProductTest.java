@@ -1,5 +1,6 @@
 package myprojects.automation.assignment4.tests;
 
+import io.qameta.allure.Description;
 import myprojects.automation.assignment4.BaseTest;
 import myprojects.automation.assignment4.model.ProductData;
 import myprojects.automation.assignment4.utils.logging.CustomReporter;
@@ -11,11 +12,11 @@ public class CreateProductTest extends BaseTest {
 
     private ProductData newTestProduct = ProductData.generate();
 
-    @DataProvider
-    public Object[][] getProduct() {
-        Object[][] product = new Object[][]{{newTestProduct}};
-        return product;
-    }
+//    @DataProvider
+//    public Object[][] getProduct() {
+//        Object[][] product = new Object[][]{{newTestProduct}};
+//        return product;
+//    }
 
     @DataProvider
     public Object[][] getAccount() {
@@ -25,6 +26,7 @@ public class CreateProductTest extends BaseTest {
         return account;
     }
     @Test(dataProvider = "getAccount")
+    @Description("Login to admin panel and create random product")
     public void createNewProduct(String login, String password) throws InterruptedException {
         actions.login(login,password);
         CustomReporter.logAction("Successful login");
@@ -35,6 +37,7 @@ public class CreateProductTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "createNewProduct")
+    @Description("Checks product exist at the site frontend and checks equals of name, quantity and price")
     public void checkProduct() throws InterruptedException {
         actions.verifyProductInSearch(newTestProduct);
 
