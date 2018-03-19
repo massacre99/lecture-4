@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Base script functionality, can be used for all Selenium scripts.
- * TODO environment : Chrome 64 (driver 2.33), FF 54 (driver 0.17.0), IE 11 (driver 3.3.0.0)
+ * TODO environment : Chrome 64 (driver 2.35), FF 54 (driver 0.17.0), IE 11 (driver 3.3.0.0)
  */
 public abstract class BaseTest {
     protected EventFiringWebDriver driver;

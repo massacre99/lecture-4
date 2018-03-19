@@ -81,7 +81,6 @@ public class GeneralActions {
         driver.findElement(newProductButton).click();
         waitForContentLoad();
         driver.findElement(newProductName).sendKeys(newProduct.getName());
-        // TODO NOT WORKING AT FF 54, WORKING AT CHROME 64 AND IE 11
 //        driver.findElement(newProductQuantity).sendKeys(Keys.chord(Keys.CONTROL + "A") + Keys.BACK_SPACE, newProduct.getQty().toString());
 //        driver.findElement(newProductPrice).sendKeys(Keys.chord(Keys.CONTROL + "A") + Keys.BACK_SPACE, newProduct.getPrice());
         driver.findElement(newProductQuantity).sendKeys(newProduct.getQty().toString());
@@ -90,7 +89,8 @@ public class GeneralActions {
         wait.until(ExpectedConditions.visibilityOfElementLocated(switcherOn));
         wait.until(ExpectedConditions.visibilityOfElementLocated(popupClose));
         driver.findElement(popupClose).click();
-        driver.findElement(saveNewProductButton).click();
+//        driver.findElement(saveNewProductButton).click();
+        new Actions(driver).click(driver.findElement(saveNewProductButton)).perform(); // TODO Переписал как просили
         wait.until(ExpectedConditions.visibilityOfElementLocated(popupClose));
         driver.findElement(popupClose).click();
 
