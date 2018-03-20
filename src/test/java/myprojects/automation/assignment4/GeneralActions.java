@@ -40,7 +40,8 @@ public class GeneralActions {
     private By switcherOff = By.xpath("//*[@class = 'switch-input ']");
     private By switcherOn = By.xpath("//*[@class = 'switch-input  -checked']");
     private By popupClose = By.className("growl-close");
-    private By saveNewProductButton = By.cssSelector("button.js-btn-save"); //    .btn-primary.js-btn-save
+//    private By saveNewProductButton = By.xpath("//*[contains(@class, 'btn-primary') and contains(@type,'submit') and contains(@class,'save')]");
+    private By saveNewProductButton = By.cssSelector(".btn.btn-primary[type='submit']");
     private By redirectButton = By.cssSelector(".btn-submit.preview");
 
     /* Можно получить элемент обобщенным селектором вида [class*='switch-input'] и проверять его активность
@@ -90,7 +91,14 @@ public class GeneralActions {
         wait.until(ExpectedConditions.visibilityOfElementLocated(popupClose));
         driver.findElement(popupClose).click();
 //        driver.findElement(saveNewProductButton).click();
-        new Actions(driver).click(driver.findElement(saveNewProductButton)).perform(); // TODO Переписал как просили
+
+        List<WebElement> saveButtons = driver.findElements(saveNewProductButton);
+        for (WebElement saveButton : saveButtons) {
+            if (saveButton.isDisplayed()) {
+                new Actions(driver).click(saveButton).perform();
+            }
+        }
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(popupClose));
         driver.findElement(popupClose).click();
 
@@ -129,6 +137,7 @@ public class GeneralActions {
         //TODO элементы, которые остались на пред. странице и которых уже нет в DOM, почему?
 //        driver.findElement(searchField).submit();
         driver.findElement(submitSearch).click();
+
         waitForContentLoad();
 
         List<WebElement> productsElements = driver.findElements(productLinks);
