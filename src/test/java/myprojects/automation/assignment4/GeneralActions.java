@@ -44,8 +44,10 @@ public class GeneralActions {
     private By saveNewProductButton = By.cssSelector(".btn.btn-primary[type='submit']");
     private By redirectButton = By.cssSelector(".btn-submit.preview");
 
-    /* Можно получить элемент обобщенным селектором вида [class*='switch-input'] и проверять его активность
-    по наличию добавляемого класса element.getAttribute("class").contains("checked") */
+    /*
+    Можно получить элемент switcherOn обобщенным селектором вида [class*='switch-input'] и проверять его активность
+    по наличию добавляемого класса element.getAttribute("class").contains("checked")
+    */
 
     //frontend site
     private By allProductsLink = By.cssSelector(".all-product-link");
@@ -82,15 +84,12 @@ public class GeneralActions {
         driver.findElement(newProductButton).click();
         waitForContentLoad();
         driver.findElement(newProductName).sendKeys(newProduct.getName());
-//        driver.findElement(newProductQuantity).sendKeys(Keys.chord(Keys.CONTROL + "A") + Keys.BACK_SPACE, newProduct.getQty().toString());
-//        driver.findElement(newProductPrice).sendKeys(Keys.chord(Keys.CONTROL + "A") + Keys.BACK_SPACE, newProduct.getPrice());
         driver.findElement(newProductQuantity).sendKeys(newProduct.getQty().toString());
         driver.findElement(newProductPrice).sendKeys(newProduct.getPrice());
         driver.findElement(switcherOff).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(switcherOn));
         wait.until(ExpectedConditions.visibilityOfElementLocated(popupClose));
         driver.findElement(popupClose).click();
-//        driver.findElement(saveNewProductButton).click();
 
         List<WebElement> saveButtons = driver.findElements(saveNewProductButton);
         for (WebElement saveButton : saveButtons) {
@@ -133,9 +132,6 @@ public class GeneralActions {
         waitForContentLoad();
         driver.findElement(allProductsLink).click();
         driver.findElement(searchField).sendKeys(product.getName());
-        //TODO Вылет на FF 54, какая то задержка сохранения формы, оно пишет в productsName.add(productsElement.getText())
-        //TODO элементы, которые остались на пред. странице и которых уже нет в DOM, почему?
-//        driver.findElement(searchField).submit();
         driver.findElement(submitSearch).click();
 
         waitForContentLoad();

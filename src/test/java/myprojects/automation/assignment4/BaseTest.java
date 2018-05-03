@@ -81,7 +81,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     @Parameters("browser")
-    public void setUp(@Optional("ie") String browser)  {
+    public void setUp(@Optional("chrome") String browser)  {
         driver = new EventFiringWebDriver(getDriver(browser));
         driver.register(new EventHandler());
 
